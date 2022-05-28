@@ -1,0 +1,14 @@
+{
+  "name": "blueedtech",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node init"
+  },
+  "author": "Vanderlei Miguel",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
