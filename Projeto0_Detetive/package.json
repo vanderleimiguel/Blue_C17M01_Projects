@@ -1,13 +1,14 @@
 {
-  "name": "blueedtech",
+  "name": "projeto0_detetive",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Repository of projects carried out in module 1\r Course: web development - full stack\r Institution: Blue Edtech\r Module 1",
+  "main": "mod0Proj0_Detetive_.js",
   "scripts": {
-    "start": "node init"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Vanderlei Miguel",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "prompt-sync": "^4.2.0"
   }
