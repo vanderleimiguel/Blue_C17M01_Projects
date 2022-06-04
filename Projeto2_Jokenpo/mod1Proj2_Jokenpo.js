@@ -19,8 +19,11 @@ while (continuar == 'S') {
     console.log('[0] Pedra \n[1] Papel \n[2] Tesoura')
     let opcaoUsuario = +prompt('\nQual sua opção: ')
 
-    while (opcaoUsuario > 2) {
-      opcaoUsuario = +prompt('\nQual sua opção: ')
+    while (opcaoUsuario > 2 || isNaN(opcaoUsuario)) {
+      console.log()
+      opcaoUsuario = +prompt(
+        'Escolha entre: \n[0] Pedra [1] Papel [2] Tesoura \nQual sua opção: '
+      )
     }
 
     const opcaoComputador = Math.floor(Math.random() * 3)
