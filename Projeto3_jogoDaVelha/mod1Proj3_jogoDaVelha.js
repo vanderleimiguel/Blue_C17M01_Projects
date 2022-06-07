@@ -15,7 +15,7 @@ let tabuleiro = [
   [2, '_', '_', '_'],
   [3, '_', '_', '_']
 ]
-let LetraPC = ['A', 'B', 'C']
+let LetterPC = ['A', 'B', 'C']
 let lineUser = 0
 let columUser = 'A'
 let linePC = 0
@@ -29,6 +29,8 @@ let positionFree = 'N'
 //******************************************************************
 //Interação com usuario, selecionar simbolo, linha e coluna
 //******************************************************************
+
+//Titulo
 console.log('Vamos jogar o classico Jogo da Velha!!!!')
 console.log('Vamos começar a jogar!!!!!!')
 
@@ -49,53 +51,57 @@ if (symbol == 1) {
 //mostra tabuleiro
 console.log(tabuleiro)
 
-//logica
+//Escolhas de posição
 while (endGame == 'N') {
   while (positionFree == 'N') {
     //Usuario escolha a linha
-    lineUser = +prompt('Escolha a linha 1, 2 ou 3 que deseja jogar: ')
+    lineUser = +prompt(
+      `\nEscolha a linha [1], [2] ou [3] que deseja colocar o ${symbolUser}: `
+    )
     while (lineUser != 1 && lineUser != 2 && lineUser != 3) {
       console.log('\nDigite apenas [1], [2] ou [3]')
-      lineUser = +prompt('Escolha a linha 1, 2 ou 3 que deseja jogar: ')
+      lineUser = +prompt(
+        `Escolha a linha [1], [2] ou [3] que deseja colocar o ${symbolUser}: `
+      )
     }
     //Usuario escolha coluna
-    columUser = prompt('Escolha a coluna A, B ou C que deseja jogar: ')
-    while (
-      columUser != 'a' &&
-      columUser != 'b' &&
-      columUser != 'c' &&
-      columUser != 'A' &&
-      columUser != 'B' &&
-      columUser != 'C'
-    ) {
+    columUser = prompt(
+      `Escolha a coluna [A], [B] ou [C] que deseja colocar o ${symbolUser}: `
+    ).toUpperCase()
+    while (columUser != 'A' && columUser != 'B' && columUser != 'C') {
       console.log()
       console.log('\nDigite apenas [A], [B] ou [C]')
-      columUser = prompt('Escolha a coluna A, B ou C que deseja jogar: ')
+      columUser = prompt(
+        `Escolha a coluna [A], [B] ou [C] que deseja colocar o ${symbolUser}: `
+      ).toUpperCase()
       console.log()
     }
 
     //Verifica posicao livre
-    positionFree = posicao(lineUser, columUser)
+    positionFree = position(lineUser, columUser)
+    if (positionFree == 'N') {
+      console.log(`\nPosição ${lineUser}, ${columUser} está ocupada`)
+    }
   }
   positionFree = 'N'
   //coloca escolha no tabuleiro
-  escolha(symbolUser, lineUser, columUser)
+  choice(symbolUser, lineUser, columUser)
 
   //verifica se conclui o jogo
-  endGame = ganhador()
+  endGame = winner()
 
   if ((endGame = 'N')) {
     while (positionFree == 'N') {
-      columPC = LetraPC[Math.floor(Math.random() * 3)]
+      columPC = LetterPC[Math.floor(Math.random() * 3)]
       linePC = Math.floor(Math.random() * 3 + 1)
-      positionFree = posicao(linePC, columPC)
+      positionFree = position(linePC, columPC)
     }
     positionFree = 'N'
     //coloca escolha no tabuleiro
-    escolha(symbolPC, linePC, columPC)
+    choice(symbolPC, linePC, columPC)
 
     //verifica se conclui o jogo
-    endGame = ganhador()
+    endGame = winner()
   }
   console.log(tabuleiro)
 }
@@ -118,34 +124,31 @@ if (
 //******************************************************************
 
 //função escolha de posição
-function escolha(simbol, lin, colun) {
-  console.log(simbol)
-  console.log(lin)
-  console.log(colun)
-  if (lin == 1 && colun == 'A') {
-    tabuleiro[1][1] = simbol
-  } else if (lin == 1 && colun == 'B') {
-    tabuleiro[1][2] = simbol
-  } else if (lin == 1 && colun == 'C') {
-    tabuleiro[1][3] = simbol
-  } else if (lin == 2 && colun == 'A') {
-    tabuleiro[2][1] = simbol
-  } else if (lin == 2 && colun == 'B') {
-    tabuleiro[2][2] = simbol
-  } else if (lin == 2 && colun == 'C') {
-    tabuleiro[2][3] = simbol
-  } else if (lin == 3 && colun == 'A') {
-    tabuleiro[3][1] = simbol
-  } else if (lin == 3 && colun == 'B') {
-    tabuleiro[3][2] = simbol
-  } else if (lin == 3 && colun == 'C') {
-    tabuleiro[3][3] = simbol
+function choice(symbol, line, column) {
+  if (line == 1 && column == 'A') {
+    tabuleiro[1][1] = symbol
+  } else if (line == 1 && column == 'B') {
+    tabuleiro[1][2] = symbol
+  } else if (line == 1 && column == 'C') {
+    tabuleiro[1][3] = symbol
+  } else if (line == 2 && column == 'A') {
+    tabuleiro[2][1] = symbol
+  } else if (line == 2 && column == 'B') {
+    tabuleiro[2][2] = symbol
+  } else if (line == 2 && column == 'C') {
+    tabuleiro[2][3] = symbol
+  } else if (line == 3 && column == 'A') {
+    tabuleiro[3][1] = symbol
+  } else if (line == 3 && column == 'B') {
+    tabuleiro[3][2] = symbol
+  } else if (line == 3 && column == 'C') {
+    tabuleiro[3][3] = symbol
   }
 }
 
 //função verifica se houve ganhador
-function ganhador() {
-  let venceu = 'Y'
+function winner() {
+  let venceu = 'N'
   if (
     tabuleiro[1][1] == 'O' &&
     tabuleiro[1][2] == 'O' &&
@@ -253,7 +256,7 @@ function ganhador() {
 }
 
 //função verifica posição livre
-function posicao(linha, coluna) {
+function position(linha, coluna) {
   let posicaoLivre2 = 'N'
   if (
     (tabuleiro[1][1] == '_' && linha == 1 && coluna == 'A') ||
