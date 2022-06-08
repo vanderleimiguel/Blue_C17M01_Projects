@@ -28,6 +28,7 @@ let positionFree = 'N'
 let winnerUser1 = 0
 let winnerUser2 = 0
 let continuar = 'S'
+let jogAtual = 0
 
 //******************************************************************
 //Funções
@@ -202,6 +203,42 @@ function position(linha, coluna) {
   }
 }
 
+//função de escolha de linha
+function choiceline() {
+  let lineFunction
+  lineFunction = +prompt(
+    `\nJogador ${jogAtual} escolha a linha [1], [2] ou [3] que deseja colocar o ${symbolUser1}: `
+  )
+  while (lineFunction != 1 && lineFunction != 2 && lineFunction != 3) {
+    console.log('\nDigite apenas [1], [2] ou [3]')
+    lineFunction = +prompt(
+      `Jogador ${jogAtual} escolha a linha [1], [2] ou [3] que deseja colocar o ${symbolUser1}: `
+    )
+  }
+  return lineFunction
+}
+
+//função de escolha de coluna
+function choiceColumn() {
+  let columnFunction
+  columnFunction = prompt(
+    `Jogador ${jogAtual} escolha a coluna [A], [B] ou [C] que deseja colocar o ${symbolUser1}: `
+  ).toUpperCase()
+  while (
+    columnFunction != 'A' &&
+    columnFunction != 'B' &&
+    columnFunction != 'C'
+  ) {
+    console.log()
+    console.log('\nDigite apenas [A], [B] ou [C]')
+    columnFunction = prompt(
+      `Jogador ${jogAtual} escolha a coluna [A], [B] ou [C] que deseja colocar o ${symbolUser1}: `
+    ).toUpperCase()
+    console.log()
+  }
+  return columnFunction
+}
+
 //******************************************************************
 //Interação com usuario, selecionar simbolo, linha e coluna
 //******************************************************************
@@ -222,10 +259,10 @@ while (usuario != 1 && usuario != 2) {
 }
 
 //escolha x ou 0
-symbol = +prompt('\nUsuario 1 escolha seu símbolo para jogar [1] X ou [2] O: ')
+symbol = +prompt('\nJogador 1 escolha seu símbolo para jogar [1] X ou [2] O: ')
 while (symbol != 1 && symbol != 2) {
   console.log('\nDigite apenas 1 ou 2')
-  symbol = +prompt('Usuario 1 escolha seu símbolo para jogar [1] X ou [2] O: ')
+  symbol = +prompt('Jogador 1 escolha seu símbolo para jogar [1] X ou [2] O: ')
 }
 if (symbol == 1) {
   symbolUser1 = 'X'
@@ -243,27 +280,11 @@ while (continuar == 'S') {
   while (endGame == 'N') {
     while (positionFree == 'N') {
       //Usuario escolha a linha
-      lineUser1 = +prompt(
-        `\nJogador 1 escolha a linha [1], [2] ou [3] que deseja colocar o ${symbolUser1}: `
-      )
-      while (lineUser1 != 1 && lineUser1 != 2 && lineUser1 != 3) {
-        console.log('\nDigite apenas [1], [2] ou [3]')
-        lineUser1 = +prompt(
-          `Jogador 1 escolha a linha [1], [2] ou [3] que deseja colocar o ${symbolUser1}: `
-        )
-      }
+      jogAtual = 1
+      lineUser1 = choiceline()
+
       //Usuario escolha coluna
-      columUser1 = prompt(
-        `Jogador 1 escolha a coluna [A], [B] ou [C] que deseja colocar o ${symbolUser1}: `
-      ).toUpperCase()
-      while (columUser1 != 'A' && columUser1 != 'B' && columUser1 != 'C') {
-        console.log()
-        console.log('\nDigite apenas [A], [B] ou [C]')
-        columUser1 = prompt(
-          `Jogador 1 escolha a coluna [A], [B] ou [C] que deseja colocar o ${symbolUser1}: `
-        ).toUpperCase()
-        console.log()
-      }
+      columUser1 = choiceColumn()
 
       //Verifica posicao livre
       positionFree = position(lineUser1, columUser1)
@@ -291,27 +312,11 @@ while (continuar == 'S') {
           positionFree = position(lineUser2, columUser2)
         } else if (usuario == 2) {
           //Usuario 2 escolha a linha
-          lineUser2 = +prompt(
-            `\nJogador 2 escolha a linha [1], [2] ou [3] que deseja colocar o ${symbolUser2}: `
-          )
-          while (lineUser2 != 1 && lineUser2 != 2 && lineUser2 != 3) {
-            console.log('\nDigite apenas [1], [2] ou [3]')
-            lineUser2 = +prompt(
-              `Jogador 2 escolha a linha [1], [2] ou [3] que deseja colocar o ${symbolUser2}: `
-            )
-          }
+          jogAtual = 2
+          lineUser2 = choiceline()
           //Usuario escolha coluna
-          columUser2 = prompt(
-            `Jogador 2 escolha a coluna [A], [B] ou [C] que deseja colocar o ${symbolUser2}: `
-          ).toUpperCase()
-          while (columUser2 != 'A' && columUser2 != 'B' && columUser2 != 'C') {
-            console.log()
-            console.log('\nDigite apenas [A], [B] ou [C]')
-            columUser2 = prompt(
-              `Jogador 2 escolha a coluna [A], [B] ou [C] que deseja colocar o ${symbolUser2}: `
-            ).toUpperCase()
-            console.log()
-          }
+          columUser2 = choiceColumn()
+
           //Verifica posicao livre
           positionFree = position(lineUser2, columUser2)
           if (positionFree == 'N') {
@@ -336,24 +341,21 @@ while (continuar == 'S') {
     (endGame == 'X' && symbolUser1 == 'X')
   ) {
     winnerUser1++
-    console.log('\nParabens você foi o ganhador!!!!!!!')
-
     console.log(
-      `Você ganhou ${winnerUser1} vezes e o Jogador 2 ganhou ${winnerUser2} vezes`
+      `\nO jogador 1 ganhou ${winnerUser1} vezes e o Jogador 2 ganhou ${winnerUser2} vezes`
     )
   } else if (
     (endGame == 'O' && symbolUser2 == 'O') ||
     (endGame == 'X' && symbolUser2 == 'X')
   ) {
     winnerUser2++
-    console.log('\nVocê perdeu!!!!!!')
     console.log(
-      `Você ganhou ${winnerUser1} vezes e o Jogador 2 ganhou ${winnerUser2} vezes`
+      `\n O jogador 1 ganhou ${winnerUser1} vezes e o Jogador 2 ganhou ${winnerUser2} vezes`
     )
   } else if (endGame == 'E') {
     console.log('\nJogo empatado!!!!!!')
     console.log(
-      `Você ganhou ${winnerUser1} vezes e o Jogador 2 ganhou ${winnerUser2} vezes`
+      `O jogador 1 ganhou ${winnerUser1} vezes e o Jogador 2 ganhou ${winnerUser2} vezes`
     )
   }
 
@@ -361,6 +363,22 @@ while (continuar == 'S') {
   continuar = prompt('Deseja continuar [S/N]').toUpperCase()
   while (continuar != 'S' && continuar != 'N') {
     continuar = prompt('Deseja continuar [S/N]').toUpperCase()
+  }
+
+  //verifica o ganhador geral
+  console.log(`\nFim de Jogo`)
+  if (winnerUser1 > winnerUser2) {
+    console.log(
+      `O jogador 1 é o grande campeão com ${winnerUser1} vitórias contra ${winnerUser2} vitórias do jogador 2`
+    )
+  } else if (winnerUser1 < winnerUser2) {
+    console.log(
+      `O jogador 2 é o grande campeão com ${winnerUser2} vitórias contra ${winnerUser1} vitórias do jogador 1`
+    )
+  } else {
+    console.log(
+      `O jogo ficou empatado com ${winnerUser1} vitórias do jogador 1 e ${winnerUser2} vitórias do jogador 2`
+    )
   }
 
   //zerando variaveis
