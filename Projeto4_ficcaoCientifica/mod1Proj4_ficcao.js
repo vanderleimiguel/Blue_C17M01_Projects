@@ -3,5 +3,8 @@
 //Dev: Vanderlei do Nascimento Miguel Júnior
 
 const prompt = require('prompt-sync')()
+console.clear()
 
-//teste
+//**************************************************************
+//Declaração de variaveis
+//**************************************************************
