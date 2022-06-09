@@ -359,28 +359,28 @@ while (continuar == 'S') {
     )
   }
 
-  //Verifica que quer continuar ou terminar a jogar
+  //Verifica se quer continuar ou terminar a jogar
   continuar = prompt('Deseja continuar [S/N]').toUpperCase()
   while (continuar != 'S' && continuar != 'N') {
     continuar = prompt('Deseja continuar [S/N]').toUpperCase()
   }
-
-  //verifica o ganhador geral
-  console.log(`\nFim de Jogo`)
-  if (winnerUser1 > winnerUser2) {
-    console.log(
-      `O jogador 1 é o grande campeão com ${winnerUser1} vitórias contra ${winnerUser2} vitórias do jogador 2`
-    )
-  } else if (winnerUser1 < winnerUser2) {
-    console.log(
-      `O jogador 2 é o grande campeão com ${winnerUser2} vitórias contra ${winnerUser1} vitórias do jogador 1`
-    )
-  } else {
-    console.log(
-      `O jogo ficou empatado com ${winnerUser1} vitórias do jogador 1 e ${winnerUser2} vitórias do jogador 2`
-    )
+  if (continuar == 'N') {
+    //verifica o ganhador geral
+    console.log(`\nFim de Jogo`)
+    if (winnerUser1 > winnerUser2) {
+      console.log(
+        `O jogador 1 é o grande campeão com ${winnerUser1} vitórias contra ${winnerUser2} vitórias do jogador 2`
+      )
+    } else if (winnerUser1 < winnerUser2) {
+      console.log(
+        `O jogador 2 é o grande campeão com ${winnerUser2} vitórias contra ${winnerUser1} vitórias do jogador 1`
+      )
+    } else {
+      console.log(
+        `O jogo ficou empatado com ${winnerUser1} vitórias do jogador 1 e ${winnerUser2} vitórias do jogador 2`
+      )
+    }
   }
-
   //zerando variaveis
   endGame = 'N'
   tabuleiro = [
