@@ -145,7 +145,7 @@ console.log()
 //nome de seu personagem
 personagem = prompt('Qual o nome de seu personagem?')
 console.log()
-
+//teste
 console.log(
   `${personagem} Venha a minha casa, posso lhe oferecer comida em troca de segurança da vila enquanto se recupera totalmente, você esta com fome e fraco, para reconquistar o castelo sugiro que você se alimente e treine primeiramente`
 )
