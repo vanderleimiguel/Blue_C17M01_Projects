@@ -436,7 +436,7 @@ while (
       console.log('Você já treinou nos três periodos, melhor ir descansar')
     } else if (dados.energia <= 150) {
       console.log(
-        'Você está com pouca energia para treinar, tente se alimentar primeiro!'
+        'Você está com pouca energia para treinar, é recomendado estar com pelo menos 150 de energia, tente se alimentar primeiro!'
       )
     } else {
       treinamento()
@@ -462,7 +462,7 @@ while (
       console.log('Você já treinou nos três periodos, melhor ir descansar')
     } else if (dados.energia <= 150) {
       console.log(
-        'Você está com pouca energia para enfrentar o mestre, tente se alimentar primeiro!'
+        'Você está com pouca energia para enfrentar o mestre, é recomendado estar com pelo menos 150 de energia, tente se alimentar primeiro!'
       )
     } else {
       desafiarMestre()
@@ -477,7 +477,7 @@ while (
       console.log('Você já treinou nos três periodos, melhor ir descansar')
     } else if (dados.energia <= 200) {
       console.log(
-        'Você está com pouca energia para desafiar o lider supremo, tente se alimentar primeiro!'
+        'Você está com pouca energia para desafiar o lider supremo, é recomendado estar com no minimo 200 de energia, tente se alimentar primeiro!'
       )
     } else {
       retorno = desafiarLiderSupremo()
