@@ -16,15 +16,19 @@ let escolhaEnergia = 0
 let escolhaTreinamento = 0
 let escolhaAleatoria = 0
 let escolhaProposta = 0
+let escolhaLuta = 0
 let confianca = true
 let proposta = true
+let desistir = false
+let resultadoLuta = 'ninguem'
 
 let dados = {
   dia: 1,
-  forca: 140,
-  energia: 50,
+  forca: 100,
+  energia: 100,
   periodo: 'manha',
   turno: 1,
+  forcaLider: 300,
 
   mudaPeriodo: function (turno) {
     if (turno == 1) {
@@ -38,6 +42,9 @@ let dados = {
 
   mudaForca: function (pontos) {
     this.forca += pontos
+    if (this.forca < 0) {
+      this.forca = 0
+    }
     if (pontos > 0) {
       console.log(`Você ganhou ${pontos} de força`)
     } else {
@@ -52,6 +59,14 @@ let dados = {
     } else {
       console.log(`Você perdeu ${pontos} de energia`)
     }
+  },
+
+  mudaForcaLider: function (pontos) {
+    this.forcaLider += pontos
+    if (this.forcaLider < 0) {
+      this.forcaLider = 0
+    }
+    console.log(`O lider perdeu ${pontos} de força`)
   }
 }
 
@@ -60,7 +75,8 @@ let escolhaPrincipal = [
   `\n[2] Alimentar`,
   '\n[3] Desafiar mestre',
   `\n[4] Desafiar lider Supremo`,
-  '\n[5] Desistir'
+  `\n[5] Descansar`,
+  '\n[6] Desistir de todo o treinamento'
 ]
 
 //******************************************************************
@@ -73,21 +89,13 @@ function aleatorio() {
   return num
 }
 
-//funcao verifica o que foi digitado
-function opcoes(valor) {
-  while (valor != 1 && valor != 2 && valor != 3) {
-    console.log()
-    console.log('\nDigite apenas [1], [2] ou [3]')
-  }
-}
-
 //Função Continuar historia
 function continuar() {
   console.log()
   prompt(`Pressione ENTER para continuar...`)
 }
 
-//Função Treinamento
+//Função escolha Treinamento
 function treinamento() {
   console.log(`\n${personagem} Qual tipo de treinamento deseja realizar: 
     [1] - Treinamento com boneco.
@@ -118,7 +126,7 @@ function treinamento() {
       dados.mudaForca(10)
     } else if (escolhaAleatoria == 2) {
       console.log(
-        'Você e seu comapnheiro realizaram um treinamento forte, onde você conseguiu um aumento consideravel de força, porem foi muito desgastante, consumindo energia também'
+        'Você e seu companheiro realizaram um treinamento forte, onde você conseguiu um aumento consideravel de força, porem foi muito desgastante, consumindo energia também'
       )
       dados.mudaEnergia(-20)
       dados.mudaForca(20)
@@ -141,16 +149,16 @@ function treinamento() {
       console.log(
         'Você encontrou um urso feroz no seu caminho e teve muito trabalho para derrota-lo, conseguiu aumentar sua força, mais lhe custou energia'
       )
-      dados.mudaEnergia(-10)
+      dados.mudaEnergia(-20)
       dados.mudaForca(30)
     } else if (escolhaAleatoria == 3) {
       console.log('Você montou uma armadilha e conseguiu capturar um javali')
-      dados.mudaEnergia(30)
+      dados.mudaForca(30)
     }
   }
 }
 
-//Função ganhar energia
+//Função escolha ganhar energia
 function ganharEnergia() {
   console.log(`\n${personagem} para se alimentar temos 3 opções: 
   [1] - Podemos dividir o que temos disponivel.
@@ -200,7 +208,7 @@ function ganharEnergia() {
         'Você encontrou um urso feroz no seu caminho e teve muito trabalho para derrota-lo, conseguiu aumentar sua força, mais lhe custou energia'
       )
       dados.mudaEnergia(-10)
-      dados.mudaForca(30)
+      dados.mudaForca(20)
     } else if (escolhaAleatoria == 3) {
       console.log('Você montou uma armadilha e conseguiu capturar um javali')
       dados.mudaEnergia(30)
@@ -208,17 +216,17 @@ function ganharEnergia() {
   }
 }
 
-//Função Desafiar Mestre
+//Função escolha Desafiar Mestre
 function desafiarMestre() {
   console.log('A luta com seu mestre irá iniciar esteja preparado: ')
   continuar()
   console.clear()
-  if (dados.forca < 100) {
+  if (dados.forca < 150) {
     console.log(
       `${personagem}, eu te derrotei com facilidade, você deve aumentar sua força se quer me derrotar e principalmente derrotar o lider supremo. `
     )
     dados.mudaEnergia(-30)
-  } else if (dados.forca >= 100 && dados.forca < 150) {
+  } else if (dados.forca >= 150 && dados.forca < 250) {
     console.log(
       `${personagem}, você me derrotou, porem ainda tem muito que aprender se deseja desafiar o lider supremo. `
     )
@@ -231,9 +239,71 @@ function desafiarMestre() {
   }
 }
 
-//Função Desafiar o lider Supremo
+//Função escolha Desafiar o lider Supremo
 function desafiarLiderSupremo() {
-  console.log('duelo')
+  console.log(`Chegou o grande dia, você acredita estar preparado para o duelo com o lider supremo e vai até o castelo.
+  o campo de batalha está preparado e vamos iniciar o duelo:`)
+
+  while (resultadoLuta == 'ninguem') {
+    continuar()
+    console.clear()
+    console.log(`
+    ${personagem}, Força ${dados.forca}
+    Lider, Força ${dados.forcaLider}`)
+
+    console.log(`\n${personagem} Escolha sua ação: 
+  [1] - Atacar
+  [2] - Defender
+  `)
+    escolhaLuta = +prompt()
+    while (escolhaLuta != 1 && escolhaLuta != 2) {
+      console.log('\nDigite apenas [1], [2]')
+      escolhaLuta = +prompt()
+    }
+    if (escolhaLuta == 1) {
+      escolhaAleatoria = aleatorio()
+      if (escolhaAleatoria == 1) {
+        console.log(
+          'O ataque teve sucesso e o lider supremo não conseguiu defender'
+        )
+        dados.mudaForcaLider(-40)
+      } else if (escolhaAleatoria == 2) {
+        console.log(
+          'O lider supremo desviou de seu ataque e lhe acertou em seguida'
+        )
+        dados.mudaForca(-20)
+      } else if (escolhaAleatoria == 3) {
+        console.log('O lider supremo conseguiu defender o ataque')
+
+        dados.mudaForcaLider(-10)
+      }
+    } else if (escolhaLuta == 2) {
+      escolhaAleatoria = aleatorio()
+      if (escolhaAleatoria == 1) {
+        console.log(
+          'Você defendeu bem o ataque do Lider e ainda conseguiu contra atacar em seguida'
+        )
+
+        dados.mudaForcaLider(-20)
+      } else if (escolhaAleatoria == 2) {
+        console.log(
+          'O Lider conseguiu ultrapassar a sua defesa e lhe atingiu um golpe poderoso'
+        )
+        dados.mudaForca(-30)
+      } else if (escolhaAleatoria == 3) {
+        console.log('Você defendeu o ataque')
+      }
+    }
+    if (dados.forca == 0) {
+      resultadoLuta = 'lider'
+      return 'lider'
+    } else if (dados.forcaLider == 0) {
+      resultadoLuta = 'personagem'
+      return 'personagem'
+    } else {
+      resultadoLuta = 'ninguem'
+    }
+  }
 }
 
 //******************************************************************
@@ -256,22 +326,25 @@ personagem = prompt('Qual o nome de seu personagem? ')
 
 console.clear()
 console.log(
-  `O nome do samurai é ${personagem}, ele precisa treinar e conseguir primeiramente ganhar de seu mestre que irá avalia-lo se esta pronto para o desafio com o lider supremo.`
+  `O nome do samurai é ${personagem}, ele precisa treinar e conseguir primeiramente ganhar de seu mestre que irá avalia-lo se esta pronto para o desafio com o lider supremo.
+  Seu mestre irá orienta-lo em escolhas que deverão ser realizadas 1 a cada periodo do dia, manhã, tarde e noite`
 )
 console.log()
-continuar()
-console.clear()
 
 //******************************************************************
 //Menu de escolhas principais
 //******************************************************************
 
-while (vida === true && confianca === true) {
+while (
+  vida === true &&
+  confianca === true &&
+  desistir == false &&
+  resultadoLuta == 'ninguem'
+) {
+  continuar()
+  console.clear()
   //Atualiazação de dados principais
-  if (dados.turno >= 4) {
-    dados.turno = 1
-    dados.dia++
-  }
+
   dados.mudaPeriodo(dados.turno)
   console.log(`\nVocê esta no dia ${dados.dia},
   no periodo da ${dados.periodo},
@@ -280,7 +353,7 @@ while (vida === true && confianca === true) {
   console.log()
 
   //Encontro com lider supremo
-  if (dados.forca >= 150 && proposta == true) {
+  if (dados.forca >= 200 && proposta == true && dados.turno <= 3) {
     console.log(`O samurai lider supremo, soube do samurai ${personagem}, um jovem muito habilidoso e decidiu encontra-lo pessoalmente.
   Ao encontrar o samurai ${personagem}, o lider supremo fez uma proposta para ele:`)
     console.log()
@@ -309,7 +382,9 @@ while (vida === true && confianca === true) {
       console.log()
       proposta = false
     } else if (escolhaProposta == 2) {
-      console.log('Otima proposta, eu aceito lutar ao seu lado ')
+      console.log(
+        `${personagem}, surpreende em sua decisão e escolhe se juntar ao lider supremo.`
+      )
       console.log()
       confianca = false
       proposta = false
@@ -319,8 +394,16 @@ while (vida === true && confianca === true) {
         'Você é pior do que eu imaginava, nunca me juntarei a você e quero desafia-lo aqui mesmo para um duelo pelo governo da ilha'
       )
       console.log()
-      desafiarLiderSupremo()
+      retorno = desafiarLiderSupremo()
       proposta = false
+      if (retorno == 'lider') {
+        resultadoLuta = 'lider'
+        console.log('O Lider venceu o desafio')
+      } else if (retorno == 'personagem') {
+        resultadoLuta = 'personagem'
+        console.log('Você venceu o desafio')
+      }
+      continue
     }
   }
 
@@ -329,14 +412,16 @@ while (vida === true && confianca === true) {
     `${personagem} Escolha o que deseja fazer no momento: ${escolhaPrincipal}`
   )
   escolha = +prompt()
+
   while (
     escolha != 1 &&
     escolha != 2 &&
     escolha != 3 &&
     escolha != 4 &&
-    escolha != 5
+    escolha != 5 &&
+    escolha != 6
   ) {
-    console.log('\nDigite apenas [1], [2], [3], [4] ou [5]')
+    console.log('\nDigite apenas [1], [2], [3], [4], [5] ou [6]')
     escolha = +prompt()
   }
   console.log()
@@ -347,56 +432,109 @@ while (vida === true && confianca === true) {
   if (escolha == 1) {
     console.log(`${personagem}: escolheu treinar`)
     console.log()
-    if (dados.energia <= 60) {
+    if (dados.turno >= 4) {
+      console.log('Você já treinou nos três periodos, melhor ir descansar')
+    } else if (dados.energia <= 150) {
       console.log(
         'Você está com pouca energia para treinar, tente se alimentar primeiro!'
       )
     } else {
       treinamento()
       dados.turno++
-      continuar()
-      console.clear()
     }
 
     //Escolha principal opção 2
   } else if (escolha == 2) {
-    console.log(`${personagem}: escolheu se alimentar`)
-    console.log()
-    ganharEnergia()
-    dados.turno++
-    continuar()
-    console.clear()
+    if (dados.turno >= 4) {
+      console.log('Você já treinou nos três periodos, melhor ir descansar')
+    } else {
+      console.log(`${personagem}: escolheu se alimentar`)
+      console.log()
+      ganharEnergia()
+      dados.turno++
+    }
 
     //Escolha principal opção 3
   } else if (escolha == 3) {
     console.log(`${personagem}: escolheu desafiar o mestre`)
     console.log()
-    if (dados.energia <= 80) {
+    if (dados.turno >= 4) {
+      console.log('Você já treinou nos três periodos, melhor ir descansar')
+    } else if (dados.energia <= 150) {
       console.log(
         'Você está com pouca energia para enfrentar o mestre, tente se alimentar primeiro!'
       )
     } else {
       desafiarMestre()
+      dados.turno++
     }
-    dados.turno++
-    continuar()
-    console.clear()
 
     //Escolha principal opção 4
   } else if (escolha == 4) {
     console.log(`${personagem}: escolheu desafiar o lider supremo`)
     console.log()
-    retorno = desafiarLiderSupremo()
-    dados.turno++
-    continuar()
-    console.clear()
+    if (dados.turno >= 4) {
+      console.log('Você já treinou nos três periodos, melhor ir descansar')
+    } else if (dados.energia <= 200) {
+      console.log(
+        'Você está com pouca energia para desafiar o lider supremo, tente se alimentar primeiro!'
+      )
+    } else {
+      retorno = desafiarLiderSupremo()
+      if (retorno == 'lider') {
+        console.log('O Lider venceu o desafio')
+      } else {
+        console.log('Você venceu o desafio')
+      }
+      continuar()
+      console.clear()
+    }
 
     //Escolha principal opção 5
   } else if (escolha == 5) {
+    if (dados.turno >= 3) {
+      dados.mudaEnergia(30)
+    } else if (dados.turno == 2) {
+      dados.mudaEnergia(10)
+    }
+    dados.turno = 1
+    dados.dia++
+
+    console.log('Você completou mais um dia, continue sua jornada')
+
+    //Escolha principal opção 6
+  } else if (escolha == 6) {
     console.log(`${personagem}: escolheu desistir`)
+
+    desistir = true
     console.log()
+    continuar()
+    console.clear()
   }
 }
+
+//******************************************************************
+//Mensagens Finais
+//******************************************************************
+
+console.clear()
+
 if (confianca == false) {
-  console.log('confianca false')
+  console.log(`${personagem} cansado do treinamento e da vida na vila, fica encantado com a proposta do lider supremo
+  Esquece o povo e se junta ao Governo do Lider em troca de beneficios pessoais.`)
+} else if (desistir == true) {
+  console.log(
+    `Com o intenso treinamento ${personagem} resolveu desistir e seguir a vida como habitante normal na vila, mesmo insatisfeito com as escolha de governo do lider supremo.`
+  )
+} else if (retorno == 'lider') {
+  console.log(
+    `${personagem} acaba sendo derrotado e morto, como grande guerreiro e lenda, simbolo da resistencia do governo do Lider Supremo.`
+  )
+} else if (retorno == 'personagem') {
+  console.log(
+    `${personagem} vende o desafio e assume o cargo de lider supremo, governando a ilha em favor do povo e ficou conhecido como um grande lider de paz e conforto para seu povo.`
+  )
 }
+
+console.log()
+console.log('FIM DE JOGO!!!!!!!!')
