@@ -537,4 +537,4 @@ if (confianca == false) {
 }
 
 console.log()
-console.log('FIM DE JOGO!!!!!!!!')
+console.log('FIM DE JOGO!!!!')
