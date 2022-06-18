@@ -1,8 +1,8 @@
-# Blue_C17M01_Projects
+# Blue_Modulo1_Projetos
 
-Project repository Module 01 Course: Full Stack Web Development Institution: Blue Edtech
+Projetos realizados no modulo 1
 
-Repositorio dedicado aos projetos do modulo 1 do curso de full stack da blue edtech
+Curso de desenvolvimento Full Stack
+Instituição: Blue EdTech
 
-//npm init -y
-//npm install prompt-sync
+Dev: Vanderlei do Nascimento Miguel Júnior

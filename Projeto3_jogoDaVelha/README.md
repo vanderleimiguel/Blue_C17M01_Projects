@@ -1,5 +1,9 @@
-# BlueEdTech_C17M01
-Repository of projects carried out in module 1
-Course: web development - full stack
-Institution: Blue Edtech
-Module 1
+# BlueEdTech_Modulo1_Projeto3
+
+Projetos 3 - Modulo 1
+Jogo da Velha
+
+Curso de desenvolvimento Full Stack
+Instituição: Blue EdTech
+
+Dev: Vanderlei do Nascimento Miguel Júnior

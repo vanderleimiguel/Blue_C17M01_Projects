@@ -1,10 +1,9 @@
-# BlueEdTech_C17M01
+# BlueEdTech_Modulo1_Projeto1
 
-Repository of projects carried out in module 1
-Course: web development - full stack
-Institution: Blue Edtech
-Module 1
+Projetos 1 - Modulo 1
+Jogo a jornada do heroi
 
-Projeto 1 A jornada do heroi
+Curso de desenvolvimento Full Stack
+Instituição: Blue EdTech
 
-Projeto da semana 1 do curso da blue edtech
+Dev: Vanderlei do Nascimento Miguel Júnior

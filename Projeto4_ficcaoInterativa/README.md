@@ -1,6 +1,7 @@
-# BlueEdTech_Modulo0_Projeto0
+# BlueEdTech_Modulo1_Projeto4
 
-Projetos 0 - Modulo 0
+Projetos 4 - Modulo 1
+Jogo de ficção interativa
 
 Curso de desenvolvimento Full Stack
 Instituição: Blue EdTech
