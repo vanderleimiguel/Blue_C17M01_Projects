@@ -14,7 +14,7 @@ Requisitos:
 - Funções para executar cada uma das tarefas. (1,5)
 - Conteúdo de condicionais, laços, funções e objetos bem aplicados. (2,0)
 
-Avaliação:
+Avaliação: 10 - Aluno Destaque
 
 Curso de desenvolvimento Full Stack
 Instituição: Blue EdTech
