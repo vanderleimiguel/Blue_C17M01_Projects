@@ -20,10 +20,10 @@ const main = params => {
   }
 
   var sum = 0
-  for (var i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     sum += list[i]
   }
-
+  console.log(sum)
   return sum
 }
 main()
